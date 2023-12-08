@@ -2,7 +2,7 @@ from models.cell.CellParameters import CellParameters
 from models.cell.Cell import Cell
 from models.cell.wind.WindDirection import WindDirection
 from models.cell.wind.Wind import Wind
-from models.Element import Element
+from models.world.Element import Element
 
 element_to_temperature_mapping ={
     Element.LAND.name: 25,

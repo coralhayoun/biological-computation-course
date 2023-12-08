@@ -1,5 +1,5 @@
 from factories.CellFactory import CellFactory
-from models.Element import Element
+from models.world.Element import Element
 
 world_elements = list(Element.__members__.values())
 cell_factory = CellFactory()
@@ -36,7 +36,7 @@ class WorldMatrixFactory:
         return elements_matrix
 
     def generate_matrix(self, rows, columns):
-            return [([0]*rows) for i in range(columns)]
+        return [([0]*rows) for i in range(columns)]
 
     def get_element_by_value(self, value):
         for item in Element:

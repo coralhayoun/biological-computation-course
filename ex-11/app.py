@@ -1,7 +1,10 @@
-from models.cell.Cell import Cell
-from models.cell.CellParameters import CellParameters
-from models.Element import Element
+from models.world.World import World
+from models.world.WorldMap import WorldMap
 
-b = CellParameters(Element.LAND, 1, 1, 1)
-a = Cell(b)
-a.current_parameters.to_string()
+rows = 15
+columns = 15
+cell_size = 50
+map_file = "./files/world.dat"
+
+world_map = WorldMap(rows, columns, cell_size, map_file)
+world = World(world_map)

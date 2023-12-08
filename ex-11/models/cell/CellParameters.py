@@ -1,12 +1,4 @@
-from models.Element import Element
-
-element_to_temperature_mapping ={
-    Element.LAND.name: 25,
-    Element.SEA.name: 20,
-    Element.ICEBURG.name: -15,
-    Element.FOREST.name: 20,
-    Element.CITY.name: 27,
-}
+from models.world.Element import Element
 
 class CellParameters:
     def __init__(self, element, temperature, wind, is_cloudy, air_pollution = 0.08):
