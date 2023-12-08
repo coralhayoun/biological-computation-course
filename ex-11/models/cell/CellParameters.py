@@ -1,6 +1,6 @@
 from models.Element import Element
 
-temperature_mapping ={
+element_to_temperature_mapping ={
     Element.LAND.name: 25,
     Element.SEA.name: 20,
     Element.ICEBURG.name: -15,
@@ -9,12 +9,12 @@ temperature_mapping ={
 }
 
 class CellParameters:
-    def __init__(self, element, wind, clouds, air_pollution):
+    def __init__(self, element, wind, is_cloudy, air_pollution = 0.08):
         self.element = element
         self.wind = wind
-        self.clouds = clouds
+        self.is_cloudy = is_cloudy
         self.air_pollution = air_pollution
-        self.temperature = temperature_mapping[element.name]
+        self.temperature = element_to_temperature_mapping[element.name]
     
     def to_string(self):
         print(self.temperature)
