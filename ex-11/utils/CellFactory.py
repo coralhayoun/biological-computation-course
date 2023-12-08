@@ -10,7 +10,7 @@ class CellFactory:
         wind = Wind(wind_direction = wind_direction)
         cell_parameters = CellParameters(element, wind, is_cloudy)
 
-        return Cell(cell_parameters)
+        return Cell(row, column, cell_parameters)
 
     def init_wind_direction(self, row, column):
         if (row + column) %2 == 0:
@@ -18,6 +18,6 @@ class CellFactory:
         else:
             return WindDirection.WEST
 
-    #create cloud for each 6-th cell
+    #create clouds for each 6-th cell
     def init_is_cloudy(self, row, column):
         return (row + column) % 6 == 0

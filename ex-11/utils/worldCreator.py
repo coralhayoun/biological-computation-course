@@ -4,7 +4,8 @@ from models.Element import Element
 world_elements = list(Element.__members__.values())
 cell_factory = CellFactory()
 
-def create_cells_matrix(rows, columns, elements_matrix):
+def create_cells_matrix(rows, columns, map_file):
+    elements_matrix = create_elements_matrix(rows, columns, map_file)
     cells_matrix = generate_matrix(rows, columns)
 
     for row in range(rows):
