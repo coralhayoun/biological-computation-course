@@ -6,3 +6,4 @@ class CellElement(Enum):
     ICEBURG = 3
     FOREST = 4
     CITY = 5
+    FIRED = 6

@@ -1,8 +1,12 @@
-from models.automaton.neighborhood.neighborhood_name import NeighborhoodName
+from enum import Enum
+
+class NeighborhoodName(Enum):
+    MOORE = 1
+    NEUMANN = 2
 
 neighborhood_to_moves_mapping = {
-    NeighborhoodName.NEUMANN: [(-1, 0), (0, 1), (1, 0), (0, -1)],
-    NeighborhoodName.MOORE: [
+    NeighborhoodName.NEUMANN.name: [(-1, 0), (0, 1), (1, 0), (0, -1)],
+    NeighborhoodName.MOORE.name: [
         (-1, 0), (-1, 1), (0, 1), (1, 1),
         (1, 0), (1, -1), (0, -1), (-1, -1)
     ],
@@ -14,7 +18,7 @@ class Neighborhood:
         self.neighborhood_getter = self.init_neighborhood_getter(neighborhood_name)
 
     def init_neighborhood_getter(self, neighborhood_name):
-        moves = neighborhood_to_moves_mapping[neighborhood_name.value]
+        moves = neighborhood_to_moves_mapping[neighborhood_name.name]
 
         def neighbors_getter(cell_index, cells_matrix):
             return self.get_neighbors_by_moves(cell_index, cells_matrix, moves)

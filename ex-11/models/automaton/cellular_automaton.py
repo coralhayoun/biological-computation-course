@@ -1,3 +1,5 @@
+import copy
+
 from utils.utils import generate_matrix
 
 class CellularAutomaton:
@@ -25,10 +27,10 @@ class CellularAutomaton:
         self.current_generation += 1
 
     def run_transition_rules(self, cell, neighbors):
-        new_cell = None
-
+        new_cell = copy.deepcopy(cell)
+        
         for rule in self.transition_rules:
-          new_cell = rule(cell, neighbors)  
+          new_cell = rule(new_cell, neighbors)  
 
         return new_cell
     
