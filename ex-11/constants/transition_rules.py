@@ -3,7 +3,7 @@ from models.automaton.cell.cell_wind import WindDirection
 from models.automaton.cell.cell_weather_condition import CellWeatherCondition
 from constants.reverse_wind_directions import reverse_wind_directions
 
-pollution_heat_factor = 0.8  # how much 100% pollution will raise the temperture in a day (in celsius degrees)
+pollution_heat_factor = 0.5  # how much 100% pollution will raise the temperture in a day (in celsius degrees)
 rain_cold_factor = 0.04       # how much will the temperature decrease when raining
 
 def update_cell_wind(cell, neighbors):
@@ -27,6 +27,10 @@ def update_cell_air_pollution(cell, neighbors):
         if neighbor.wind.direction == reverse_wind_directions[cell.wind.direction.name]:
             cell.air_pollution += neighbor.air_pollution * neighbor.wind.speed * 0.05
     
+    # making sure air pollution is between 0% - 100%
+    cell.air_pollution = min(1, cell.air_pollution)
+    cell.air_pollution = max(0, cell.air_pollution)
+
     return cell
 
 def update_cell_temperature(cell, neighbors):
@@ -48,9 +52,13 @@ def update_cell_element(cell, neighbors):
         cell.element = CellElement.SEA
     elif cell.element.name == CellElement.SEA.name and cell.temperature < 0:
         cell.element = CellElement.ICEBURG
+    elif cell.element.name == CellElement.SEA.name and cell.temperature > 50:
+        cell.element = CellElement.LAND
     elif cell.element.name == CellElement.FOREST.name and cell.temperature > 40:
         cell.element = CellElement.FIRED
     elif cell.element.name == CellElement.CITY.name and cell.temperature > 50:
+        cell.element = CellElement.FIRED
+    elif cell.element.name == CellElement.LAND.name and cell.temperature > 60:
         cell.element = CellElement.FIRED
     elif cell.element.name == CellElement.FIRED.name and cell.temperature < 30:
         cell.element = CellElement.CITY

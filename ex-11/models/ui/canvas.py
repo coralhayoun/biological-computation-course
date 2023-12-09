@@ -1,4 +1,5 @@
 import tkinter as tk
+import statistics
 
 from constants.canvas import compass_symbols, elements_color, weather_conditions_color
 
@@ -11,12 +12,12 @@ class Canvas:
         self.rows = len(automaton.cells_matrix)
         self.columns = len(automaton.cells_matrix[0])
 
-        self.refresh_rate = 30
+        self.refresh_rate = 15
         self.cell_size = 50
         self.canvas_cells = [([0]*self.rows) for i in range(self.columns)]
 
-        self.init_canvas()
-
+        self.daily_temperature_avg = []
+        self.daily_air_pollution_avg = []
 
     def update_canvas(self):
         if self.automaton.current_generation < self.automaton.generation_limit:
@@ -26,7 +27,7 @@ class Canvas:
             self.color_canvas_grid()
             print(self.automaton.current_generation)
             self.lable.config(text="Generation {}".format(self.automaton.current_generation))
-            #self.sub_lable.config(text=self._get_sub_label_text())
+            self.sub_lable.config(text=self.get_canvas_subtitle())
             self.root.after(self.refresh_rate, self.update_canvas)
         else:
             self.lable.config(text="Generation {}, simulation finished!".format(self.automaton.current_generation))
@@ -35,7 +36,10 @@ class Canvas:
         self.root = tk.Tk()
         self.root.title("maman 11 - Cellular Automaton Simulation")
         self.lable = tk.Label(self.root, text="Generation {}".format(self.automaton.current_generation), font="bold")
+        self.sub_lable = tk.Label(self.root, text=self.get_canvas_subtitle())
         self.lable.pack()
+        self.sub_lable.pack()
+
 
         window_height = self.rows * self.cell_size
         window_width = self.columns * self.cell_size
@@ -103,3 +107,40 @@ class Canvas:
         cell_air_pollution = round(cell.air_pollution * 100, 1)
 
         return "{} {}\u2103\n P:{}%".format(cell_wind_direction, cell_temperature, cell_air_pollution)
+
+    def get_canvas_subtitle(self):
+        temperature_list = self.get_temperature_list()
+        air_pollution_list = self.get_air_pollution_list()
+
+        temperature_avg = round(statistics.mean(temperature_list), 1)
+        air_pollution_avg = round(statistics.mean(air_pollution_list) * 100, 2)
+        temperature_std_dev = round(statistics.pstdev(temperature_list), 1)
+        air_pollution_std_dev = round( statistics.pstdev(air_pollution_list)*100, 2)
+
+        self.daily_temperature_avg.append(temperature_avg)
+        self.daily_air_pollution_avg.append(air_pollution_avg)
+
+        line1 = "Average temperature: {}\u2103   \t Average air Pollution: {}%\n".format(temperature_avg, air_pollution_avg)
+        line2 = "Standart deviation: {}\u2103 \t\t Standart deviation: {}%".format(temperature_std_dev,  air_pollution_std_dev)
+
+        return line1 + line2
+    
+    def get_temperature_list(self): 
+        temperatures = []
+
+        for row in range(self.rows):
+            for column in range(self.columns):
+                cell = self.cells_matrix[row][column]
+                temperatures.append(cell.temperature)
+        
+        return temperatures
+    
+    def get_air_pollution_list(self): 
+        air_pollutions = []
+
+        for row in range(self.rows):
+            for column in range(self.columns):
+                cell = self.cells_matrix[row][column]
+                air_pollutions.append(cell.air_pollution)
+        
+        return air_pollutions

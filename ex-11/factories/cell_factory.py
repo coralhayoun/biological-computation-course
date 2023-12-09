@@ -4,7 +4,7 @@ from models.automaton.cell.cell_wind import CellWind
 from models.automaton.cell.cell_element import CellElement
 from models.automaton.cell.cell_weather_condition import CellWeatherCondition
 
-element_to_temperature_mapping ={
+element_to_temperature_mapping = {
     CellElement.LAND.name: 25,
     CellElement.SEA.name: 15,
     CellElement.ICEBURG.name: -30,
