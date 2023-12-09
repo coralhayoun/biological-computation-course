@@ -10,16 +10,15 @@ compass_symbols = {
 }
 
 elements_color = {
-    CellElement.LAND.value: "#994C00",
+    CellElement.LAND.value: "#D2B48C",
     CellElement.SEA.value: "#3399FF",
     CellElement.ICEBURG.value: "#CCFFFF",
-    CellElement.FOREST.value: "#009900",
-    CellElement.CITY.value: "#A0A0A0",
-    CellElement.FIRED.value: "#FF8000",
+    CellElement.FOREST.value: "#90EE90",
+    CellElement.CITY.value: "#828282",
+    CellElement.FIRED.value: "#E34234",
 }
 
 weather_conditions_color = {
     CellWeatherCondition.CLOUDY.value : "#FFFFFF",
     CellWeatherCondition.RAINY.value : "#808080",
-    CellWeatherCondition.REGULAR.value : "#FFFFFF",
 }

@@ -3,8 +3,8 @@ from models.automaton.cell.cell_wind import WindDirection
 from models.automaton.cell.cell_weather_condition import CellWeatherCondition
 from constants.reverse_wind_directions import reverse_wind_directions
 
-pollution_heat_factor = 0.7  # how much 100% pollution will raise the temperture in a day (in celsius degrees)
-rain_cold_factor = 0.4       # how much will the temperature decrease when raining
+pollution_heat_factor = 0.8  # how much 100% pollution will raise the temperture in a day (in celsius degrees)
+rain_cold_factor = 0.04       # how much will the temperature decrease when raining
 
 def update_cell_wind(cell, neighbors):
     current_to_next_direction = {
@@ -20,12 +20,12 @@ def update_cell_wind(cell, neighbors):
 
 def update_cell_air_pollution(cell, neighbors):
     # blowing some pollution away
-    cell.air_pollution -= cell.air_pollution * cell.wind.speed
+    cell.air_pollution -= cell.air_pollution * cell.wind.speed * 0.05
 
     # neighbor blowing pollution towatd me
     for neighbor in neighbors:
         if neighbor.wind.direction == reverse_wind_directions[cell.wind.direction.name]:
-            cell.air_pollution += neighbor.air_pollution * neighbor.wind.speed
+            cell.air_pollution += neighbor.air_pollution * neighbor.wind.speed * 0.05
     
     return cell
 
@@ -36,6 +36,10 @@ def update_cell_temperature(cell, neighbors):
     # decrease temperature because of cold
     if cell.weather_condition == CellWeatherCondition.RAINY and cell.temperature > 15:
         cell.temperature -= rain_cold_factor
+
+    # temperature is affected by the neighbors
+    avg_temperature = sum(neighbor.temperature for neighbor in neighbors) / len(neighbors) if neighbors else 0
+    cell.temperature += (avg_temperature -cell.temperature) * 0.01
 
     return cell
 
@@ -54,12 +58,15 @@ def update_cell_element(cell, neighbors):
     return cell
 
 def update_cell_weather_condition(cell, neighbors):
-    if cell.weather_condition == CellWeatherCondition.RAINY and cell.temperature > 20:
+    if cell.weather_condition != CellWeatherCondition.CLOUDY and cell.temperature > 10 and cell.temperature < 25:
         cell.weather_condition = CellWeatherCondition.CLOUDY
 
-    elif cell.weather_condition == CellWeatherCondition.CLOUDY and cell.temperature < 20:
+    elif cell.weather_condition != CellWeatherCondition.RAINY and cell.temperature < 10:
         cell.weather_condition = CellWeatherCondition.RAINY
     
+    elif cell.weather_condition != CellWeatherCondition.REGULAR and cell.temperature > 25:
+        cell.weather_condition = CellWeatherCondition.REGULAR
+
     return cell
 
 transition_rules = [

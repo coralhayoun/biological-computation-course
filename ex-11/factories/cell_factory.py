@@ -6,8 +6,8 @@ from models.automaton.cell.cell_weather_condition import CellWeatherCondition
 
 element_to_temperature_mapping ={
     CellElement.LAND.name: 25,
-    CellElement.SEA.name: 20,
-    CellElement.ICEBURG.name: -15,
+    CellElement.SEA.name: 15,
+    CellElement.ICEBURG.name: -30,
     CellElement.FOREST.name: 20,
     CellElement.CITY.name: 27,
     CellElement.FIRED.name: 50,

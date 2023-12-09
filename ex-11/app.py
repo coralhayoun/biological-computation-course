@@ -7,9 +7,9 @@ from models.ui.canvas import Canvas
 
 
 cells_matrix_factory = CellsMatrixFactory()
-rows = 3
-columns = 3
-cells_file = 'little-world-elements.dat'
+rows = 15
+columns = 15
+cells_file = 'big-world-elements.dat'
 
 cells_matrix = cells_matrix_factory.create_cells_matrix(rows, columns, cells_file)
 

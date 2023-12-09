@@ -11,8 +11,8 @@ class Canvas:
         self.rows = len(automaton.cells_matrix)
         self.columns = len(automaton.cells_matrix[0])
 
-        self.refresh_rate = 60
-        self.cell_size = 100
+        self.refresh_rate = 30
+        self.cell_size = 50
         self.canvas_cells = [([0]*self.rows) for i in range(self.columns)]
 
         self.init_canvas()
@@ -33,7 +33,7 @@ class Canvas:
 
     def init_canvas(self):
         self.root = tk.Tk()
-        self.root.title("Maman 11 - Cellular Automaton World Simulation")
+        self.root.title("maman 11 - Cellular Automaton Simulation")
         self.lable = tk.Label(self.root, text="Generation {}".format(self.automaton.current_generation), font="bold")
         self.lable.pack()
 
@@ -80,9 +80,12 @@ class Canvas:
             for column in range(self.columns):
                 cell = self.cells_matrix[row][column]
 
-                canvas_cell_text = compass_symbols[cell.wind.direction.value]
+                canvas_cell_text = self.get_cell_text(cell)
                 canvas_cell_color = elements_color[cell.element.value]
-                canvas_cell_cloud = weather_conditions_color[cell.weather_condition.value]
+                canvas_cell_cloud = None
+                
+                if cell.weather_condition.value in weather_conditions_color:
+                    canvas_cell_cloud = weather_conditions_color[cell.weather_condition.value]
                 
                 (canvas_square_id, canvas_text_id, canvas_cloud_id) = self.canvas_cells[row][column]
 
@@ -93,5 +96,10 @@ class Canvas:
                     self.canvas.itemconfig(canvas_cloud_id, fill=canvas_cell_cloud)
                 else:
                     self.canvas.itemconfig(canvas_cloud_id, fill="")
-    
-    
+
+    def get_cell_text(self, cell):
+        cell_wind_direction = compass_symbols[cell.wind.direction.value]
+        cell_temperature = int(cell.temperature)  # adding unicode celcius degeress symbol
+        cell_air_pollution = round(cell.air_pollution * 100, 1)
+
+        return "{} {}\u2103\n P:{}%".format(cell_wind_direction, cell_temperature, cell_air_pollution)
