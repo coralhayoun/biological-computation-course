@@ -1,6 +1,6 @@
 from enum import Enum
 
-class Element(Enum):
+class CellElement(Enum):
     LAND = 1
     SEA = 2
     ICEBURG = 3
