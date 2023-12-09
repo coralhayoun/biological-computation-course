@@ -9,7 +9,9 @@ rain_cold_factor = 0.4       # how much will the temperature decrease when raini
 def update_cell_wind(cell, neighbors):
     current_to_next_direction = {
         WindDirection.NORTH.name: WindDirection.WEST,
-        WindDirection.WEST.name: WindDirection.NORTH
+        WindDirection.WEST.name: WindDirection.NORTH,
+        WindDirection.SOUTH.name: WindDirection.SOUTH,
+        WindDirection.EAST.name: WindDirection.EAST
     }
 
     cell.wind.direction = current_to_next_direction[cell.wind.direction.name]

@@ -23,8 +23,12 @@ class CellFactory:
         return Cell(element, temperatue, wind, weather_condition)
 
     def init_wind_direction(self, row, column):
-        if (row + column) %2 == 0:
+        if (row + column) %4 == 0:
             return WindDirection.NORTH
+        elif (row + column) %4 == 1:
+            return WindDirection.SOUTH
+        elif (row + column) %4 == 2:
+            return WindDirection.EAST
         else:
             return WindDirection.WEST
 

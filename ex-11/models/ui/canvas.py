@@ -3,34 +3,51 @@ import tkinter as tk
 from constants.canvas import compass_symbols, elements_color, weather_conditions_color
 
 class Canvas:
-    def __init__(self, cells_matrix):
-        self.cells_matrix = cells_matrix
-        self.rows = len(cells_matrix)
-        self.columns = len(cells_matrix[0])
-        self.current_generation = 0
-        self.generation_number = 365
+    def __init__(self, automaton):
+        self.automaton = automaton
 
-        self.refresh_rate = 30
-        self.cell_size = 50
+        self.cells_matrix = automaton.cells_matrix
+        self.callback = automaton.update_cells_generation
+        self.rows = len(automaton.cells_matrix)
+        self.columns = len(automaton.cells_matrix[0])
+
+        self.refresh_rate = 60
+        self.cell_size = 100
         self.canvas_cells = [([0]*self.rows) for i in range(self.columns)]
 
+        self.init_canvas()
+
+
+    def update_canvas(self):
+        if self.automaton.current_generation < self.automaton.generation_limit:
+            print("updating canvas")
+            self.automaton.update_cells_generation()
+            
+            self.color_canvas_grid()
+            print(self.automaton.current_generation)
+            self.lable.config(text="Generation {}".format(self.automaton.current_generation))
+            #self.sub_lable.config(text=self._get_sub_label_text())
+            self.root.after(self.refresh_rate, self.update_canvas)
+        else:
+            self.lable.config(text="Generation {}, simulation finished!".format(self.automaton.current_generation))
+
     def init_canvas(self):
-        root = tk.Tk()
-        root.title("Maman 11 - Cellular Automaton World Simulation")
-        lable = tk.Label(root, text="Generation {}".format(self.current_generation), font="bold")
-        lable.pack()
+        self.root = tk.Tk()
+        self.root.title("Maman 11 - Cellular Automaton World Simulation")
+        self.lable = tk.Label(self.root, text="Generation {}".format(self.automaton.current_generation), font="bold")
+        self.lable.pack()
 
         window_height = self.rows * self.cell_size
         window_width = self.columns * self.cell_size
 
-        self.canvas = tk.Canvas(root, height=window_height, width=window_width, bg="white")
+        self.canvas = tk.Canvas(self.root, height=window_height, width=window_width, bg="white")
         self.canvas.pack()
         
         self.init_canvas_grid()
         self.color_canvas_grid()
 
-        root.mainloop()
-
+        self.root.after(self.refresh_rate, self.update_canvas)
+        self.root.mainloop()
 
     def init_canvas_grid(self):
         cg = 0.13  # cloud_margin_gap, unit: cell size percentage
@@ -75,4 +92,6 @@ class Canvas:
                 if (canvas_cell_cloud != None):
                     self.canvas.itemconfig(canvas_cloud_id, fill=canvas_cell_cloud)
                 else:
-                    self.canvas.itemconfig(canvas_cloud_id, fill="")   # ~~ stopped
+                    self.canvas.itemconfig(canvas_cloud_id, fill="")
+    
+    

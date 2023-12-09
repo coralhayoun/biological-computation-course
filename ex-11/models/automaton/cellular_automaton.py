@@ -11,6 +11,7 @@ class CellularAutomaton:
         self.transition_rules = transition_rules
 
         self.current_generation = 0
+        self.generation_limit = 365
 
     def update_cells_generation(self):
         new_cells_matrix = generate_matrix(self.rows, self.columns)
@@ -28,7 +29,7 @@ class CellularAutomaton:
 
     def run_transition_rules(self, cell, neighbors):
         new_cell = copy.deepcopy(cell)
-        
+
         for rule in self.transition_rules:
           new_cell = rule(new_cell, neighbors)  
 
