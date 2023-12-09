@@ -25,7 +25,7 @@ def update_cell_air_pollution(cell, neighbors):
     # neighbor blowing pollution towatd me
     for neighbor in neighbors:
         if neighbor.wind.direction == reverse_wind_directions[cell.wind.direction.name]:
-            cell.air_pollution += neighbor.air_pollution * neighbor.wind.speed * 0.05
+            cell.air_pollution += neighbor.air_pollution * neighbor.wind.speed * 0.06
     
     # making sure air pollution is between 0% - 100%
     cell.air_pollution = min(1, cell.air_pollution)
@@ -38,7 +38,7 @@ def update_cell_temperature(cell, neighbors):
     cell.temperature += cell.air_pollution * pollution_heat_factor
     
     # decrease temperature because of cold
-    if cell.weather_condition == CellWeatherCondition.RAINY and cell.temperature > 15:
+    if cell.weather_condition == CellWeatherCondition.RAINY and cell.temperature < 15:
         cell.temperature -= rain_cold_factor
 
     # temperature is affected by the neighbors

@@ -20,7 +20,7 @@ class CellFactory:
         wind = CellWind(direction = wind_direction)
         temperatue = element_to_temperature_mapping[element.name]
 
-        return Cell(element, temperatue, wind, weather_condition)
+        return Cell(element, temperatue, wind, weather_condition, 0.01)
 
     def init_wind_direction(self, row, column):
         if (row + column) %4 == 0:
