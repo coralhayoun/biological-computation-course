@@ -10,11 +10,11 @@ for element in CellElement:
     world_elements.append(str(element.value))
 
 class CellsMatrixFactory:
-    def create_cells_matrix(self, rows, columns):
-        return self.init_cells_matrix(rows, columns)
+    def create_cells_matrix(self, rows, columns, cells_file):
+        return self.init_cells_matrix(rows, columns, cells_file)
 
-    def init_cells_matrix(self, rows, columns):
-        elements_matrix = self.create_elements_matrix(rows, columns)
+    def init_cells_matrix(self, rows, columns, cells_file):
+        elements_matrix = self.create_elements_matrix(rows, columns, cells_file)
         cells_matrix = self.generate_matrix(rows, columns)
 
         for row in range(rows):
@@ -25,9 +25,9 @@ class CellsMatrixFactory:
         return cells_matrix
 
 
-    def create_elements_matrix(self, rows, columns):
+    def create_elements_matrix(self, rows, columns, cells_file):
         elements_matrix = self.generate_matrix(rows, columns)
-        file_path = self.get_file_path()
+        file_path = self.get_file_path(cells_file)
 
         with open(file_path, 'r') as file:
             for row in range(rows):
@@ -49,8 +49,8 @@ class CellsMatrixFactory:
             if str(item.value) == value:
                 return item
             
-    def get_file_path(self):
+    def get_file_path(self, cells_file):
         script_directory = os.path.dirname(os.path.realpath(__file__))
-        relative_path_to_file = os.path.join('..', 'files', 'world-elements.dat')
+        relative_path_to_file = os.path.join('..', 'files', cells_file)
 
         return os.path.normpath(os.path.join(script_directory, relative_path_to_file))

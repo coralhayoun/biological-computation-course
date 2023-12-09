@@ -34,5 +34,5 @@ class CellFactory:
         elif (row + column) % 6 == 0:
             return CellWeatherCondition.CLOUDY
         
-        return None
+        return CellWeatherCondition.REGULAR
         

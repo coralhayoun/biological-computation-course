@@ -1,5 +1,3 @@
-import copy
-
 from models.automaton.cell.cell_element import CellElement
 from models.automaton.cell.cell_wind import WindDirection
 from models.automaton.cell.cell_weather_condition import CellWeatherCondition
