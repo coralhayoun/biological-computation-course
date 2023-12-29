@@ -1,5 +1,2 @@
 tk
-enum
 statistics
-copy
-os
