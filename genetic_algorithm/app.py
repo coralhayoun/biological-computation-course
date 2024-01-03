@@ -35,5 +35,5 @@ def generate_population():
 
 genetic_algorithm = GeneticAlgorithm(generate_population(), cell_fitness, cells_crossover, cell_mutation, 20)
 best = genetic_algorithm.run_algorithm()
-GameOfLifeBoard(best)
+GameOfLifeBoard(GameOfLife(best.history[0])).init_canvas()
 

@@ -21,7 +21,7 @@ class GameOfLife:
         self.automaton.update_cells_generation()
     
     def play_whole_game(self):
-        while self.automaton.current_generation <= self.automaton.generation_limit and not self.is_idle():
+        while self.automaton.current_generation <= self.automaton.generation_limit:
             self.automaton.update_cells_generation()
             self.cells_matrix = self.automaton.cells_matrix
             self.history.append(copy.deepcopy(self.automaton.cells_matrix))
