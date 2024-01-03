@@ -5,7 +5,7 @@ def mutation(genome_cells, mutation_rate):
 
     for cell in genome_cells:
         #apply mutation with the specified probability
-        if random.random(1,10) < mutation_rate * 10:
+        if random.randint(1,10) < mutation_rate * 10:
             mutation_cells.append(cell)
         else:
             mutation_cells.append(cell)

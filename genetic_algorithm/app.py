@@ -10,6 +10,7 @@ sys.path.insert(0, parent_dir)
 from core.genetic_algorithm import GeneticAlgorithm
 from application.constants.genetic_algorithm_functions import cells_crossover, cell_fitness, cell_mutation
 from application.game_of_life.game_of_life import GameOfLifeCell, GameOfLife
+from application.game_of_life.game_of_life_board import GameOfLifeBoard
 from utils.utils import generate_matrix
 
 rows = 30
@@ -33,6 +34,6 @@ def generate_population():
     return population
 
 genetic_algorithm = GeneticAlgorithm(generate_population(), cell_fitness, cells_crossover, cell_mutation, 20)
-genetic_algorithm.run_algorithm()
-
+best = genetic_algorithm.run_algorithm()
+GameOfLifeBoard(best)
 

@@ -18,9 +18,11 @@ class GeneticAlgorithm:
 
         sorted_population = sorted(self.population, key = self.fitness_calculation, reverse = True)
         best = sorted_population[0]
+        return best
 
     def run_algorithm_iteration(self):
         sorted_population = sorted(self.population, key = self.fitness_calculation, reverse = True)
+        print("new iteration began {}".format(self.current_generation))
         new_population = sorted_population[0:2]
 
         for _ in range(self.population_size - 2):
@@ -28,6 +30,7 @@ class GeneticAlgorithm:
             new_population.append(new_cell)
         
         self.population = new_population
+        self.current_generation += 1
         
     
     def create_offspring(self, sorted_population):
