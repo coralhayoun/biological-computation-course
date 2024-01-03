@@ -23,7 +23,7 @@ class GeneticAlgorithm:
         sorted_population = sorted(self.population, key = self.fitness_calculation, reverse = True)
         new_population = sorted_population[0:2]
 
-        for _ in range(self.population_size - 1):
+        for _ in range(self.population_size - 2):
             new_cell = self.create_offspring(sorted_population)
             new_population.append(new_cell)
         
