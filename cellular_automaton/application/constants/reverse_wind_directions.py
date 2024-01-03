@@ -1,4 +1,4 @@
-from models.automaton.cell.cell_wind import WindDirection
+from application.models.cell.cell_wind import WindDirection
 
 reverse_wind_directions = {
     WindDirection.NORTH.name: WindDirection.SOUTH,

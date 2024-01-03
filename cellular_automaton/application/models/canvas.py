@@ -1,7 +1,7 @@
 import tkinter as tk
 import statistics
 
-from constants.canvas import compass_symbols, elements_color, weather_conditions_color
+from application.constants.canvas import compass_symbols, elements_color, weather_conditions_color
 
 class Canvas:
     def __init__(self, automaton):

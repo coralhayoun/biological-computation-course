@@ -1,8 +1,7 @@
-from models.automaton.cell.cell import Cell
-from models.automaton.cell.cell_wind import WindDirection
-from models.automaton.cell.cell_wind import CellWind
-from models.automaton.cell.cell_element import CellElement
-from models.automaton.cell.cell_weather_condition import CellWeatherCondition
+from application.models.cell.cell import Cell
+from application.models.cell.cell_wind import WindDirection, CellWind
+from application.models.cell.cell_element import CellElement
+from application.models.cell.cell_weather_condition import CellWeatherCondition
 
 element_to_temperature_mapping = {
     CellElement.LAND.name: 25,

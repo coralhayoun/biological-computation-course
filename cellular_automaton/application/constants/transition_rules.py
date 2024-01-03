@@ -1,7 +1,7 @@
-from models.automaton.cell.cell_element import CellElement
-from models.automaton.cell.cell_wind import WindDirection
-from models.automaton.cell.cell_weather_condition import CellWeatherCondition
-from constants.reverse_wind_directions import reverse_wind_directions
+from application.models.cell.cell_element import CellElement
+from application.models.cell.cell_wind import WindDirection
+from application.models.cell.cell_weather_condition import CellWeatherCondition
+from application.constants.reverse_wind_directions import reverse_wind_directions
 
 pollution_heat_factor = 0.5  # how much 100% pollution will raise the temperture in a day (in celsius degrees)
 rain_cold_factor = 0.04       # how much will the temperature decrease when raining

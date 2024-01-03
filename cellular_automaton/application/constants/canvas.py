@@ -1,6 +1,6 @@
-from models.automaton.cell.cell_wind import WindDirection
-from models.automaton.cell.cell_element import CellElement
-from models.automaton.cell.cell_weather_condition import CellWeatherCondition
+from application.models.cell.cell_wind import WindDirection
+from application.models.cell.cell_element import CellElement
+from application.models.cell.cell_weather_condition import CellWeatherCondition
 
 compass_symbols = {
     WindDirection.NORTH.value : "\u2191",     # unicode arrow up

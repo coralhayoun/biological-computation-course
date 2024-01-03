@@ -1,7 +1,7 @@
 import os
 
-from factories.cell_factory import CellFactory
-from models.automaton.cell.cell_element import CellElement
+from application.factories.cell_factory import CellFactory
+from application.models.cell.cell_element import CellElement
 
 cell_factory = CellFactory()
 
