@@ -20,7 +20,7 @@ columns = 30
 def generate_cells_matrix():
     #making sure the alive cells will be in the middle of the grid
     min_coordinate = 5
-    max_coordinate = 15
+    max_coordinate = 25
     cells_matrix = generate_matrix(rows, columns)
     alive_cells = random.randint(min_coordinate, max_coordinate)
 
