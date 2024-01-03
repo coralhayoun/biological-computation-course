@@ -8,4 +8,8 @@ def cells_crossover(parent1, parent2):
 def cell_mutation(cell):
     mutation(cell.cells_matrix, 0.2)
 
+def cell_fitness(cell):
+    cell.play_whole_game()
+    return cell.max_alive_cells
+
     

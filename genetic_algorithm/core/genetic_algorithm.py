@@ -12,20 +12,32 @@ class GeneticAlgorithm:
         self.current_generation = 0
         self.max_generation = max_generation
 
+    def run_algorithm(self):
+        while self.current_generation < self.max_generation:
+            self.run_algorithm_iteration()
+
+        sorted_population = sorted(self.population, key = self.fitness_calculation, reverse = True)
+        best = sorted_population[0]
+
     def run_algorithm_iteration(self):
         sorted_population = sorted(self.population, key = self.fitness_calculation, reverse = True)
-        best_fitness = self.fitness_calculation(sorted_population[0])
+        new_population = sorted_population[0:2]
 
-        new_population = [sorted_population[0]]
+        for _ in range(self.population_size - 1):
+            new_cell = self.create_offspring(sorted_population)
+            new_population.append(new_cell)
+        
+        self.population = new_population
+        
+    
+    def create_offspring(self, sorted_population):
+        # Select parents from the top performers
+        parent1 = random.choice(sorted_population[:5])
+        parent2 = random.choice(sorted_population[:5])
 
-        for i in range(self.population_size):
-            # Select parents from the top performers
-            parent1 = random.choice(sorted_population[:5])
-            parent2 = random.choice(sorted_population[:5])
+        child = self.crossover_function(parent1, parent2)
+        child = self.mutation_function(child)
 
-            child = self.crossover_function(parent1, parent2)
-            child = self.mutation_function(child)
-            
-            new_population.append(child)
+        return child
 
     
