@@ -1,13 +1,13 @@
 import tkinter as tk
 
-class Canvas:
-    def __init__(self, automaton):
-        self.automaton = automaton
+class GameOfLifeUi:
+    def __init__(self, game_of_life):
+        self.game_of_life = game_of_life
 
-        self.cells_matrix = automaton.cells_matrix
-        self.callback = automaton.update_cells_generation
-        self.rows = len(automaton.cells_matrix)
-        self.columns = len(automaton.cells_matrix[0])
+        self.cells_matrix = game_of_life.automaton.cells_matrix
+        self.callback = game_of_life.automaton.update_cells_generation
+        self.rows = len(game_of_life.automaton.cells_matrix)
+        self.columns = len(game_of_life.automaton.cells_matrix[0])
 
         self.refresh_rate = 15
         self.cell_size = 50

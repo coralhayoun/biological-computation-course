@@ -1,4 +1,4 @@
-from cellular_automaton.models.automaton.cellular_automaton import CellularAutomaton
+from ....cellular_automaton.models.automaton.cellular_automaton import CellularAutomaton
 from cellular_automaton.models.automaton.neighborhood.neighborhood import Neighborhood, NeighborhoodName
 from transition_rules import transition_rules
 
