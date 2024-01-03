@@ -7,8 +7,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir, "cellular_automaton"))
 sys.path.insert(0, parent_dir)
 
-from models.game_of_life.game_of_life import GameOfLifeCell, GameOfLife
-from models.game_of_life.game_of_life_ui import GameOfLifeUi
+from application.game_of_life.game_of_life import GameOfLifeCell, GameOfLife
+from application.game_of_life.game_of_life_ui import GameOfLifeUi
 from utils.utils import generate_matrix
 
 rows = 30

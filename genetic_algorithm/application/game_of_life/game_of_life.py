@@ -1,6 +1,6 @@
-from models.automaton.cellular_automaton import CellularAutomaton
-from models.automaton.neighborhood.neighborhood import Neighborhood, NeighborhoodName
-from models.game_of_life.transition_rules import transition_rules
+from core.cellular_automaton import CellularAutomaton
+from core.neighborhood.neighborhood import Neighborhood, NeighborhoodName
+from application.game_of_life.transition_rules import transition_rules
 
 class GameOfLifeCell:
     def __init__(self, alive):
