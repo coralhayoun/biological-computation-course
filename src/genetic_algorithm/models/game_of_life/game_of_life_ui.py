@@ -2,15 +2,15 @@ import tkinter as tk
 
 class GameOfLifeUi:
     def __init__(self, game_of_life):
-        self.game_of_life = game_of_life
+        self.automaton = game_of_life.automaton
 
-        self.cells_matrix = game_of_life.automaton.cells_matrix
-        self.callback = game_of_life.automaton.update_cells_generation
-        self.rows = len(game_of_life.automaton.cells_matrix)
-        self.columns = len(game_of_life.automaton.cells_matrix[0])
+        self.cells_matrix = self.automaton.cells_matrix
+        self.callback = self.automaton.update_cells_generation
+        self.rows = len(self.automaton.cells_matrix)
+        self.columns = len(self.automaton.cells_matrix[0])
 
-        self.refresh_rate = 15
-        self.cell_size = 50
+        self.refresh_rate = 100
+        self.cell_size = 10
         self.alive_color = 'orange'
         self.dead_color = 'white'
         self.canvas_cells = [([0]*self.rows) for i in range(self.columns)]

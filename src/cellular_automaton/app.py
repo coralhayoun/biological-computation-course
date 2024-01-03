@@ -4,7 +4,9 @@ from models.automaton.neighborhood.neighborhood import NeighborhoodName, Neighbo
 from constants.transition_rules import transition_rules
 
 from models.ui.canvas import Canvas
-
+def print():
+    print("")
+    
 # init celular automaton
 cells_matrix_factory = CellsMatrixFactory()
 rows = 15
@@ -12,7 +14,7 @@ columns = 15
 cells_file = 'big-world-elements.dat'
 
 cells_matrix = cells_matrix_factory.create_cells_matrix(rows, columns, cells_file)
-automation = CellularAutomaton(cells_matrix, Neighborhood(NeighborhoodName.NEUMANN), transition_rules)
+automation = CellularAutomaton(cells_matrix, Neighborhood(NeighborhoodName.NEUMANN), transition_rules, 365)
 
 # init canvas (ui representation)
 canvas = Canvas(automation)

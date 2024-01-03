@@ -3,7 +3,7 @@ import copy
 from utils.utils import generate_matrix
 
 class CellularAutomaton:
-    def __init__(self, cells_matrix, neighborhood, transition_rules):
+    def __init__(self, cells_matrix, neighborhood, transition_rules, generation_limit):
         self.rows = len(cells_matrix)
         self.columns = len(cells_matrix[0])
         self.cells_matrix = cells_matrix
@@ -11,7 +11,7 @@ class CellularAutomaton:
         self.transition_rules = transition_rules
 
         self.current_generation = 0
-        self.generation_limit = 365
+        self.generation_limit = generation_limit
 
     def update_cells_generation(self):
         new_cells_matrix = generate_matrix(self.rows, self.columns)
