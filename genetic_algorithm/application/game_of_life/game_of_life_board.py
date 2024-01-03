@@ -1,6 +1,6 @@
 import tkinter as tk
 
-class GameOfLifeUi:
+class GameOfLifeBoard:
     def __init__(self, game_of_life):
         self.automaton = game_of_life.automaton
 

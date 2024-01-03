@@ -13,16 +13,24 @@ from utils.utils import generate_matrix
 
 rows = 30
 columns = 30
-cells_matrix = generate_matrix(rows, columns)
 
-for row in range(rows):
-    for column in range(columns):
-        cells_matrix[row][column] = GameOfLifeCell(random.random() < 0.5)
+def generate_cells_matrix():
+    cells_matrix = generate_matrix(rows, columns)
 
-game_of_life = GameOfLife(cells_matrix)
-ui = GameOfLifeUi(game_of_life)
-ui.init_canvas()
-      
+    for row in range(rows):
+        for column in range(columns):
+            cells_matrix[row][column] = GameOfLifeCell(random.random() < 0.5)
+    
+    return cells_matrix
+
+#game_of_life = GameOfLife(generate_cells_matrix())
+#ui = GameOfLifeUi(game_of_life)
+#ui.init_canvas()
+
+def generate_population():
+    for i in range(10):
+        genome = GameOfLife(generate_cells_matrix())
+
 
 
 
