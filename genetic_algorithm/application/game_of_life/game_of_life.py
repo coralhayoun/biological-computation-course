@@ -1,41 +1,66 @@
-import copy
+#this is an efficient game of life implementation taken from https://www.madelyneriksen.com/python-game-of-life
+#in this file, GameOfLife class inherits from the built-in 'dict' class and keeps only the grid alive cells.
 
-from core.cellular_automaton import CellularAutomaton
-from core.neighborhood.neighborhood import Neighborhood, NeighborhoodName
-from application.game_of_life.transition_rules import transition_rules
+class GameOfLife(dict):
+    def __init__(self, grid_size, *args, **kwargs):
+        self.grid_size = grid_size
+        super(GameOfLife, self).__init__(*args, **kwargs)
 
-class GameOfLifeCell:
-    def __init__(self, alive):
-        self.alive = alive
+    def __missing__(self, *args, **kwargs):
+        return 0
 
-class GameOfLife:
-    def __init__(self, cells_matrix):
-        self.automaton = CellularAutomaton(cells_matrix, Neighborhood(NeighborhoodName.MOORE), transition_rules, 200)
-        self.cells_matrix = cells_matrix
-        self.history = []
+    def get_size(self):
+        return len(self)
 
-        self.max_alive_cells = sum(cell.alive for row in self.cells_matrix for cell in row)
-        self.max_alive_cells_generation = 0
-    
-    def run_iteration(self):
-        self.automaton.update_cells_generation()
-    
-    def play_whole_game(self):
-        while self.automaton.current_generation <= self.automaton.generation_limit and self.is_idle() == False:
-            self.history.append(copy.deepcopy(self.automaton.cells_matrix))
-            self.automaton.update_cells_generation()
-            self.cells_matrix = self.automaton.cells_matrix
+    def get_cell_neighbors(self, x, y):
+        x_coordinates = (x-1, x, x+1)
+        y_coordinates = (y-1, y, y+1)
+        neighbors = []
 
-            current_alive_cells = sum(cell.alive for row in self.automaton.cells_matrix for cell in row)
-            if current_alive_cells > self.max_alive_cells:
-                self.max_alive_cells = current_alive_cells
-                self.max_alive_cells_generation = self.automaton.current_generation
-        print(self.automaton.current_generation)
-    
-    def is_idle(self):
-        for cells_matrix in self.history:
-            if all(obj1.alive == obj2.alive for row1, row2 in zip(cells_matrix, self.cells_matrix) for obj1, obj2 in zip(row1, row2)):
-                return True
+        for x in x_coordinates:
+            for y in y_coordinates:
+                neighbors.append((x, y))
+        
+        return neighbors
 
-        return False
+    def get_alive_neighbors(self, x, y):
+        alived_neighbors = 0
+        for neighbor_x, neighbor_y in self.get_cell_neighbors(x,y):
+            alived_neighbors += self[neighbor_x, neighbor_y]
+        
+        return alived_neighbors
 
+    def determine_cell_aliveness(self, x, y):
+        alived_neighbors = self.get_alive_neighbors(x,y)
+        cell = self[x, y]
+        alive, dead = [], []
+
+        #alive by reproduction
+        if alived_neighbors == 3 and not cell:
+            alive.append((x, y))
+        #dies by overpopulation or underpopulation
+        elif alived_neighbors < 3 or alived_neighbors > 4 and cell:
+            dead.append((x, y))
+
+        return alive, dead
+
+    def play_game_iteration(self):
+        alive_cells, dead_cells, generation_cells = [], [], []
+
+        for x, y in self.keys():
+            generation_cells.extend(self.get_cell_neighbors(x,y))
+
+        for x, y in generation_cells:
+            step_live, step_dead = self.determine_cell_aliveness(x, y)
+            alive_cells += step_live
+            dead_cells += step_dead
+        
+        #keep alive cells only
+        for x, y in dead_cells:
+            if self[x, y]:
+                del self[x, y]
+        for x, y in alive_cells:
+            if (0 <= x < self.grid_size and 0 <= y < self.grid_size):
+                self[x, y] = 1
+        
+        return (alive_cells, dead_cells)
